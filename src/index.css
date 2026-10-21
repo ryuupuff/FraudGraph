@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas-bg: #101010;
+  --color-surface-base: #161616;
+  --color-surface-card: #1c1c1c;
+  --color-surface-elevated: #242424;
+  --color-border-subtle: #262626;
+  --color-border-focus: #383838;
+  --color-obsidian-violet: #7c3aed;
+  --color-obsidian-violet-hover: #6d28d9;
+  --color-obsidian-violet-light: #8b5cf6;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #101010;
+    color: #e5e5e5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
