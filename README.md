@@ -1,78 +1,75 @@
 # FraudGraph
 
-**An interactive Bitcoin transaction network visualization and forensic exploration platform.**
+<p align="center">
+  <strong>Follow the flow. Find the connections.</strong><br>
+  An interactive explorer for Bitcoin transaction networks.
+</p>
 
-FraudGraph helps users explore relationships between Bitcoin transactions through an interactive directed graph, inspect connected transactions, and view class distributions and activity over time. It is designed for educational and exploratory analysis—not as an automated system that proves fraud.
+FraudGraph is a project I built to make a large transaction dataset easier to explore visually. Instead of digging through rows of data, you can move around a network of transactions, inspect their connections, and look at how labelled activity changes across time.
 
-## Features
+It uses the **Elliptic++ Bitcoin Transactions Dataset**. The goal here is exploration and visual analysis—not claiming that a connected transaction is automatically fraudulent.
 
-- **Overview dashboard** — summarizes the dataset and displays transaction-class distribution.
-- **Interactive Graph Explorer** — explore transaction nodes and directed connections, select nodes, and expand neighborhoods.
-- **Analytics** — visualize transaction classes and activity across the dataset's observation timesteps.
-- **REST API** — retrieve dataset summaries and transaction details from the FastAPI backend.
+## Take a look around
 
-## Tech stack
+*Screenshots coming soon — I'll add views of the dashboard, graph explorer, and analytics here.*
 
-| Component | Technology | Purpose |
-|---|---|---|
-| Frontend | React, TypeScript, Vite | User interface and development/build tooling |
-| Graph visualization | Cytoscape.js | Interactive nodes and directed edges |
-| Graph layouts | Dagre, Cytoscape layouts | Arrange the graph for exploration |
-| Backend API | Python, FastAPI | Serves dataset and transaction information |
-| Data processing | Pandas | Loads and processes tabular dataset files |
-| Graph operations | NetworkX | Represents and operates on transaction relationships |
+## What you can do
 
-## Dataset
+- **Get the lay of the land.** The Overview page gives you a quick read on dataset size and transaction classes.
+- **Explore the network.** In Graph Explorer, select a transaction and expand its neighborhood to see the connections around it.
+- **Check activity over time.** Analytics charts help compare the available classes across the dataset's observation windows.
+- **Inspect individual records.** The FastAPI backend exposes endpoints for dataset summaries, transaction details, and neighboring transactions.
 
-FraudGraph uses the **transaction portion of the Elliptic++ Bitcoin Transactions Dataset**, released for research by Elmougy and Liu.
+## Built with
 
-The dataset used by this project contains:
+| Part | Tools |
+|---|---|
+| Frontend | React, TypeScript, Vite |
+| Interactive graph | Cytoscape.js, Dagre |
+| Backend API | Python, FastAPI |
+| Data and graph work | Pandas, NetworkX |
 
-- **203,769** transaction nodes
-- **234,355** directed edges
-- **183** transaction features
-- **49** observation timesteps
+## The dataset, at a glance
 
-The supplied class labels are:
+| Transactions | Directed edges | Features | Timesteps |
+|---:|---:|---:|---:|
+| 203,769 | 234,355 | 183 | 49 |
 
-| Label ID | Class |
-|---:|---|
-| 1 | Illicit |
-| 2 | Licit |
-| 3 | Unknown |
+The class labels are supplied by the dataset in `txs_classes.csv`:
 
-These labels come from the dataset's `txs_classes.csv`; FraudGraph does not independently assign or validate them. Unknown means the transaction is not labelled licit or illicit in the dataset. A graph connection or dataset label should not be treated, on its own, as proof of wrongdoing.
+- **1 — Illicit**
+- **2 — Licit**
+- **3 — Unknown**
 
-### Dataset files
+FraudGraph reads and displays these labels; it doesn't create or independently verify them. “Unknown” means the dataset does not provide a licit or illicit label for that transaction.
 
-Download the transaction dataset from the official sources below and place these files in `data/raw/`:
+### Get the data
 
-- `txs_classes.csv` — transaction class labels
+The raw dataset isn't stored in this repository. Download the transaction files and place them in `data/raw/`:
+
+- `txs_classes.csv` — class labels
 - `txs_edgelist.csv` — transaction relationships
 - `txs_features.csv` — transaction features
 
-The raw data directory and CSV files are excluded from Git by the project's `.gitignore`. Review the dataset's terms before reusing or redistributing it.
+Dataset links:
+- [Elliptic++ official repository](https://github.com/git-disl/EllipticPlusPlus)
+- [Transaction dataset details](https://github.com/git-disl/EllipticPlusPlus/blob/main/Transactions%20Dataset/README.md)
+- [Original research paper](https://doi.org/10.1145/3580305.3599803)
 
-- [Official Elliptic++ GitHub repository](https://github.com/git-disl/EllipticPlusPlus)
-- [Transactions Dataset README](https://github.com/git-disl/EllipticPlusPlus/blob/main/Transactions%20Dataset/README.md)
-- [Original research paper (DOI)](https://doi.org/10.1145/3580305.3599803)
+Please credit the original authors when using the dataset in academic work, and check the dataset's terms before redistributing it.
 
-Please cite the original dataset paper when using the dataset in research or academic work.
+## Run it locally
 
-## Getting started
+You'll need Node.js/npm and Python installed.
 
-### Prerequisites
-
-Install Node.js/npm and Python. Use a Python version compatible with the backend dependencies.
-
-### 1. Clone the repository
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/ryuupuff/FraudGraph.git
 cd FraudGraph
 ```
 
-### 2. Set up the frontend
+### 2. Start the frontend
 
 From the project root:
 
@@ -81,11 +78,11 @@ npm install
 npm run dev
 ```
 
-Vite prints the local development URL in the terminal.
+Vite will show the local URL in your terminal.
 
-### 3. Set up the backend
+### 3. Start the backend
 
-From the project root, create and activate a Python virtual environment.
+In a second terminal, from the project root, create and activate a virtual environment, then install the backend dependencies.
 
 **Windows PowerShell:**
 
@@ -93,46 +90,22 @@ From the project root, create and activate a Python virtual environment.
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r backend/requirements.txt
-```
-
-Start the API from the project root:
-
-```powershell
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-Ensure the dataset files listed above are present in `data/raw/` before using dataset-backed functionality.
+Make sure the three dataset files are in `data/raw/` before running dataset-backed features.
 
-### Useful API endpoints
+### API endpoints
 
-When the backend is running, the project provides endpoints including:
-
-- `GET /api/health` — backend health check
+- `GET /api/health` — check that the API is up
 - `GET /api/dataset/summary` — dataset summary
-- `GET /api/transactions/{tx_id}` — transaction details
+- `GET /api/transactions/{tx_id}` — details for one transaction
 - `GET /api/transactions/{tx_id}/neighbors` — neighboring transactions
 
-## Project structure
+## A note on interpretation
 
-```text
-FraudGraph/
-├── backend/
-│   ├── app/          # FastAPI backend and graph/data processing
-│   ├── tests/        # Backend tests
-│   └── requirements.txt
-├── data/             # Local dataset files (not committed)
-├── docs/             # Project documentation
-├── public/           # Static frontend assets
-├── scripts/          # Project scripts
-├── src/              # React + TypeScript frontend
-├── .env.example      # Example configuration (no secrets)
-└── README.md
-```
-
-## Responsible use and limitations
-
-FraudGraph is an exploratory visualization tool. It does not currently claim to be a validated fraud-prediction model. Transaction relationships are not proof that a person committed wrongdoing, and dataset labels should be interpreted in the context of the original research. Avoid attempts to identify private individuals from pseudonymous transaction data.
+A graph can make relationships easier to spot, but a connection is not proof of wrongdoing. The labels reflect the source dataset, and this project is currently a visualization and exploration tool—not a validated fraud-prediction model. The transaction data is pseudonymous; this project isn't intended to identify private individuals.
 
 ## License
 
-No license has been added yet. Until a license is selected, do not assume that the repository's code is available for reuse under an open-source license. The dataset is separately governed by its original source's terms.
+A code license hasn't been added yet, so please don't assume the repository is licensed for reuse. The dataset has its own terms, separate from this project.
