@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// Vercel serves this app from the domain root.
+// This repository is published at https://ryuupuff.github.io/FraudGraph/
 export default defineConfig({
-  base: '/',
+  base: '/FraudGraph/',
   plugins: [
     react(),
     tailwindcss(),
