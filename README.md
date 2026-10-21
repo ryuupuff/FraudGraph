@@ -2,12 +2,12 @@
 
 **An interactive Bitcoin transaction network visualization and forensic exploration platform.**
 
-FraudGraph helps users explore relationships between Bitcoin transactions through an interactive directed graph, inspect connected transactions, and view class distributions and activity over time. It is built for educational and exploratory analysis—not as an automated system that proves fraud.
+FraudGraph helps users explore relationships between Bitcoin transactions through an interactive directed graph, inspect connected transactions, and view class distributions and activity over time. It is designed for educational and exploratory analysis—not as an automated system that proves fraud.
 
 ## Features
 
 - **Overview dashboard** — summarizes the dataset and displays transaction-class distribution.
-- **Interactive Graph Explorer** — explore transaction nodes and their directed connections, select nodes, and expand neighborhoods.
+- **Interactive Graph Explorer** — explore transaction nodes and directed connections, select nodes, and expand neighborhoods.
 - **Analytics** — visualize transaction classes and activity across the dataset's observation timesteps.
 - **REST API** — retrieve dataset summaries and transaction details from the FastAPI backend.
 
@@ -17,6 +17,7 @@ FraudGraph helps users explore relationships between Bitcoin transactions throug
 |---|---|---|
 | Frontend | React, TypeScript, Vite | User interface and development/build tooling |
 | Graph visualization | Cytoscape.js | Interactive nodes and directed edges |
+| Graph layouts | Dagre, Cytoscape layouts | Arrange the graph for exploration |
 | Backend API | Python, FastAPI | Serves dataset and transaction information |
 | Data processing | Pandas | Loads and processes tabular dataset files |
 | Graph operations | NetworkX | Represents and operates on transaction relationships |
@@ -44,25 +45,25 @@ These labels come from the dataset's `txs_classes.csv`; FraudGraph does not inde
 
 ### Dataset files
 
-Place the downloaded transaction dataset files in `data/raw/`:
+Download the transaction dataset from the official sources below and place these files in `data/raw/`:
 
 - `txs_classes.csv` — transaction class labels
 - `txs_edgelist.csv` — transaction relationships
 - `txs_features.csv` — transaction features
 
-The raw data directory and CSV files are excluded from Git by the project's `.gitignore`. Obtain the dataset from the official sources below and review their terms before reusing or redistributing it.
+The raw data directory and CSV files are excluded from Git by the project's `.gitignore`. Review the dataset's terms before reusing or redistributing it.
 
 - [Official Elliptic++ GitHub repository](https://github.com/git-disl/EllipticPlusPlus)
 - [Transactions Dataset README](https://github.com/git-disl/EllipticPlusPlus/blob/main/Transactions%20Dataset/README.md)
 - [Original research paper (DOI)](https://doi.org/10.1145/3580305.3599803)
 
-Please cite the original dataset paper when using the dataset in research or other academic work.
+Please cite the original dataset paper when using the dataset in research or academic work.
 
 ## Getting started
 
 ### Prerequisites
 
-Install a recent version of Node.js/npm and Python. Use a Python version compatible with the backend dependencies.
+Install Node.js/npm and Python. Use a Python version compatible with the backend dependencies.
 
 ### 1. Clone the repository
 
@@ -73,37 +74,34 @@ cd FraudGraph
 
 ### 2. Set up the frontend
 
+From the project root:
+
 ```bash
 npm install
 npm run dev
 ```
 
-Vite will print the local development URL in the terminal.
+Vite prints the local development URL in the terminal.
 
 ### 3. Set up the backend
 
-Create and activate a Python virtual environment from the project root.
+From the project root, create and activate a Python virtual environment.
 
 **Windows PowerShell:**
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+pip install -r backend/requirements.txt
 ```
 
-Install the backend requirements using the dependency file included in the repository. If the repository's backend dependency file is named `requirements.txt`, run:
-
-```powershell
-pip install -r requirements.txt
-```
-
-Start the API from the project root using the project's FastAPI app entry point:
+Start the API from the project root:
 
 ```powershell
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-If your local dependency file or app entry point differs, follow the paths present in your checkout.
+Ensure the dataset files listed above are present in `data/raw/` before using dataset-backed functionality.
 
 ### Useful API endpoints
 
@@ -118,13 +116,16 @@ When the backend is running, the project provides endpoints including:
 
 ```text
 FraudGraph/
-├── backend/       # FastAPI backend and graph/data processing
-├── data/          # Local dataset files (not committed)
-├── docs/          # Project documentation
-├── public/        # Static frontend assets
-├── scripts/       # Project scripts
-├── src/           # React + TypeScript frontend
-├── .env.example   # Example configuration (no secrets)
+├── backend/
+│   ├── app/          # FastAPI backend and graph/data processing
+│   ├── tests/        # Backend tests
+│   └── requirements.txt
+├── data/             # Local dataset files (not committed)
+├── docs/             # Project documentation
+├── public/           # Static frontend assets
+├── scripts/          # Project scripts
+├── src/              # React + TypeScript frontend
+├── .env.example      # Example configuration (no secrets)
 └── README.md
 ```
 
