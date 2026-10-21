@@ -5,20 +5,46 @@
   An interactive explorer for Bitcoin transaction networks.
 </p>
 
-FraudGraph is a project I built to make a large transaction dataset easier to explore visually. Instead of digging through rows of data, you can move around a network of transactions, inspect their connections, and look at how labelled activity changes across time.
+FraudGraph is a project I built to make a large transaction dataset easier to explore visually. Rather than digging through rows of data, you can move around a transaction network, inspect connections, and see how labelled activity changes over time.
 
-It uses the **Elliptic++ Bitcoin Transactions Dataset**. The goal here is exploration and visual analysis—not claiming that a connected transaction is automatically fraudulent.
+It uses the **Elliptic++ Bitcoin Transactions Dataset**. The focus is on exploration and visual analysis—not treating a connection as proof of fraud.
 
-## Take a look around
+## A look inside
 
-*Screenshots coming soon — I'll add views of the dashboard, graph explorer, and analytics here.*
+<p align="center">
+  <img src="docs/screenshots/overview-dashboard.png" alt="FraudGraph overview dashboard showing transaction totals and class distribution" width="900">
+</p>
+<p align="center"><em>The overview: transaction counts, graph size, and the dataset's supplied class labels.</em></p>
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/graph-explorer-expanded.png" alt="Graph Explorer showing an expanded transaction neighborhood">
+      <p><strong>Explore the network</strong><br>Expand a transaction's neighborhood and follow its recorded connections.</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/transaction-activity-timeline.png" alt="Transaction activity chart across 49 observation timesteps">
+      <p><strong>Watch activity over time</strong><br>Compare class counts across the dataset's 49 observation windows.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/transaction-dossier.png" alt="Transaction dossier with class, timestep, features and neighboring flows">
+      <p><strong>Inspect a transaction</strong><br>Look at a record's available features and immediate neighbors.</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/graph-explorer-seed.png" alt="Graph Explorer showing a selected seed transaction and its first neighbor">
+      <p><strong>Start with one transaction</strong><br>The graph begins with a seed and can grow as you explore more neighbors.</p>
+    </td>
+  </tr>
+</table>
 
 ## What you can do
 
-- **Get the lay of the land.** The Overview page gives you a quick read on dataset size and transaction classes.
-- **Explore the network.** In Graph Explorer, select a transaction and expand its neighborhood to see the connections around it.
-- **Check activity over time.** Analytics charts help compare the available classes across the dataset's observation windows.
-- **Inspect individual records.** The FastAPI backend exposes endpoints for dataset summaries, transaction details, and neighboring transactions.
+- **Get the lay of the land.** The Overview page gives a quick read on dataset size and the supplied transaction classes.
+- **Explore connections.** Select a node and expand its neighborhood to see the transactions directly linked to it.
+- **Compare activity over time.** Use the timeline charts to see how the labelled classes vary across observation windows.
+- **Inspect individual records.** The API provides dataset summaries, transaction details, and neighboring transactions.
 
 ## Built with
 
