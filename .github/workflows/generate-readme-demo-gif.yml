@@ -3,8 +3,6 @@ name: Generate README demo GIF
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "docs/screenshots/fraudgraph-showcase.gif"
   workflow_dispatch:
 
 permissions:
