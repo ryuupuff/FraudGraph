@@ -12,7 +12,7 @@ It uses the **Elliptic++ Bitcoin Transactions Dataset**. The focus is on explora
 ## Demo
 
 <p align="center">
-  <img src="docs/screenshots/fraudgraph-showcase.gif" alt="Animated FraudGraph showcase: overview dashboard, transaction activity, transaction dossier, and an expanding Bitcoin transaction graph" width="800">
+  <img src="docs/screenshots/fraudgraph-showcase.gif" alt="Animated FraudGraph showcase: overview dashboard, transaction activity, transaction dossier, and an expanding Bitcoin transaction graph" width="640">
 </p>
 <p align="center"><em>From dataset-level analytics to exploring connected transaction neighborhoods.</em></p>
 
