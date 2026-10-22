@@ -9,6 +9,13 @@ FraudGraph is a project I built to make a large transaction dataset easier to ex
 
 It uses the **Elliptic++ Bitcoin Transactions Dataset**. The focus is on exploration and visual analysis—not treating a connection as proof of fraud.
 
+## Demo
+
+<p align="center">
+  <img src="docs/screenshots/fraudgraph-showcase.gif" alt="Animated FraudGraph showcase: overview dashboard, transaction activity, transaction dossier, and an expanding Bitcoin transaction graph" width="800">
+</p>
+<p align="center"><em>From dataset-level analytics to exploring connected transaction neighborhoods.</em></p>
+
 ## A look inside
 
 <p align="center">
